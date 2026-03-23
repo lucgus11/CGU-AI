@@ -1,0 +1,46 @@
+// prisma/schema.prisma
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+model Analysis {
+  id              String   @id @default(cuid())
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  // Input
+  inputType       InputType
+  inputText       String    @db.Text
+  sourceUrl       String?
+
+  // Hash for deduplication (SHA-256 of inputText)
+  contentHash     String    @unique
+
+  // AI Results
+  summary         String    @db.Text
+  positivePoints  Json      // String[]
+  negativePoints  Json      // String[]
+  dataCollected   Json      // String[]
+  dataRetention   String
+  confidenceScore Int       // 0–100
+  confidenceBreakdown Json  // { clarity, userRights, dataTransparency, ambiguity }
+
+  // Metadata
+  model           String    @default("llama-3.3-70b-versatile")
+  processingMs    Int?
+
+  @@index([createdAt])
+  @@index([contentHash])
+}
+
+enum InputType {
+  TEXT
+  URL
+}
