@@ -105,7 +105,7 @@ export async function POST(req: NextRequest) {
       model: groq("llama-3.3-70b-versatile"),
       system: SYSTEM_PROMPT,
       prompt: `Analyse ces CGU :\n\n${rawContent.slice(0, 100000)}`,
-      maxTokens: 2048,
+      maxOutputTokens: 2048,
       temperature: 0.1,
     });
 
