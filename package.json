@@ -1,6 +1,5 @@
-cat > package.json << 'EOF'
 {
-  "name": "CGU-AI",
+  "name": "cgu-analyzer",
   "version": "1.0.0",
   "private": true,
   "scripts": {
@@ -33,4 +32,3 @@ cat > package.json << 'EOF'
     "typescript": "^5"
   }
 }
-EOF
