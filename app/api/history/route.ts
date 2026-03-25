@@ -1,11 +1,10 @@
-// app/api/history/route.ts
-
 import { NextResponse } from "next/server";
 import { PrismaClient } from "@prisma/client";
 
-const prisma = new PrismaClient();
+export const dynamic = 'force-dynamic';
 
 export async function GET() {
+  const prisma = new PrismaClient();
   try {
     const analyses = await prisma.analysis.findMany({
       orderBy: { createdAt: "desc" },
@@ -27,6 +26,7 @@ export async function GET() {
     });
     return NextResponse.json(analyses);
   } catch (err: any) {
+    console.error(err);
     return NextResponse.json({ error: err.message }, { status: 500 });
   } finally {
     await prisma.$disconnect();
