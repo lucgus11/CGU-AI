@@ -1,3 +1,4 @@
+export const dynamic = 'force-dynamic';
 "use client";
 
 import { useState, useEffect, useRef } from "react";
@@ -453,7 +454,7 @@ export default function Home() {
               </div>
             </button>
 
-            {(historyOpen || true) && (
+            {historyOpen && (
               <div className="space-y-2 max-h-96 overflow-y-auto pr-1">
                 {history.length === 0 ? (
                   <p className="text-xs text-white/20 text-center py-6">Aucune analyse pour l'instant</p>
